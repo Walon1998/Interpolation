@@ -84,22 +84,23 @@ Lagrange::Lagrange(const Eigen::VectorXd &x) : _x(x), _l(x.size()), _y(x.size())
 
 // Evaluate the interpolant at x.
 double Lagrange::operator()(double x) const {
-//    Complexity: O(n^2)
+//    Complexity: O(n)
     int n = _x.size();
-    Eigen::VectorXd w(n);
+//    Eigen::VectorXd w(n);
 
-    for (int i = 0; i < n; ++i) {
-        double prod = 1;
-        for (int j = 0; j < n; ++j) {
-            prod *= (x - _x[j]);
-        }
-        w(i) = prod;
+//    for (int i = 0; i < n; ++i) {
+    double prod = 1;
+    for (int j = 0; j < n; ++j) {
+        prod *= (x - _x[j]);
     }
+//        w(i) = prod;
+    double w = prod;
+//    }
 
     Eigen::VectorXd L(n);
 
     for (int i = 0; i < n; ++i) {
-        L(i) = w(i) * _l[i] / (x - _x[i]);
+        L(i) = w * _l[i] / (x - _x[i]);
     }
 
 
